@@ -1,7 +1,7 @@
 const taskForm = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
-
+const taskCounter = document.querySelector("#task-counter");
 const storageKey = "destrava-tasks";
 let tasks = JSON.parse(localStorage.getItem(storageKey) || "[]");
 
@@ -15,6 +15,10 @@ tasks = tasks.map(function (task) {
 
 function renderTasks() {
   taskList.innerHTML = "";
+  const pendingTasks = tasks.filter(function (task) {
+    return task.completed === false;
+  });
+  taskCounter.textContent = 'Tarefas pendentes: ' + pendingTasks.length;
   tasks.forEach(function (task) {
     const taskItem = document.createElement("li");
     const checkbox = document.createElement("input");
@@ -23,8 +27,10 @@ function renderTasks() {
     checkbox.addEventListener("change", function () {
       task.completed = checkbox.checked;
       localStorage.setItem(storageKey, JSON.stringify(tasks));
-      taskText.classList.toggle("completed", task.completed); 
+      renderTasks();
+      taskText.classList.toggle("completed", task.completed);
     });
+
 
     const taskText = document.createElement("span");
     taskText.textContent = task.text;
