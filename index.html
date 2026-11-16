@@ -32,7 +32,12 @@
       </section>
 
       <section aria-labelledby="task-list-title">
-        <h2 id="task-list-title">Suas Tarefas</h2> 
+        <h2 id="task-list-title">Suas Tarefas</h2>
+        <div id="task-filters">
+            <button type="button" data-filter="all">Todas</button>
+            <button type="button" data-filter="pending">Pendentes</button>
+            <button type="button" data-filter="completed">Concluídas</button>
+        </div> 
         <p id="task-counter">Tarefas pendentes: 0</p> 
         <ul id="task-list"></ul>
       </section>

@@ -2,6 +2,8 @@ const taskForm = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
 const taskCounter = document.querySelector("#task-counter");
+const filterButtons = document.querySelectorAll("#task-filters button");
+let activeFilter = "all";
 const storageKey = "destrava-tasks";
 let tasks = JSON.parse(localStorage.getItem(storageKey) || "[]");
 
@@ -19,7 +21,16 @@ function renderTasks() {
     return task.completed === false;
   });
   taskCounter.textContent = 'Tarefas pendentes: ' + pendingTasks.length;
-  tasks.forEach(function (task) {
+  const visibleTasks = tasks.filter(function (task) {
+    if (activeFilter === "pending") {
+      return task.completed === false;
+      }
+    if (activeFilter === "completed") {
+      return task.completed === true;
+    }
+    return true;
+  });
+  visibleTasks.forEach(function (task) {
     const taskItem = document.createElement("li");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -28,7 +39,6 @@ function renderTasks() {
       task.completed = checkbox.checked;
       localStorage.setItem(storageKey, JSON.stringify(tasks));
       renderTasks();
-      taskText.classList.toggle("completed", task.completed);
     });
 
 
@@ -49,7 +59,12 @@ function renderTasks() {
 }); 
 }
 renderTasks();
-
+filterButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    activeFilter = button.dataset.filter;
+    renderTasks();
+  });
+});
 taskForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
