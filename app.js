@@ -5,12 +5,20 @@ const taskList = document.querySelector("#task-list");
 const storageKey = "destrava-tasks";
 let tasks = JSON.parse(localStorage.getItem(storageKey) || "[]");
 
+tasks = tasks.map(function (task) {
+  if (typeof task === "string") {
+    return { text: task, completed: false };
+  }
+
+  return task;
+});
+
 function renderTasks() {
   taskList.innerHTML = "";
 
   tasks.forEach(function (task) {
     const taskItem = document.createElement("li");
-    taskItem.textContent = task;
+    taskItem.textContent = task.text;
     taskList.append(taskItem);
   });
 }
@@ -26,7 +34,7 @@ taskForm.addEventListener("submit", function (event) {
     return;
   }
 
-  tasks.push(taskText);
+  tasks.push({ text: taskText, completed: false });
   localStorage.setItem(storageKey, JSON.stringify(tasks));
   renderTasks();
 
