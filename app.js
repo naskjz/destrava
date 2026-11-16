@@ -15,14 +15,24 @@ tasks = tasks.map(function (task) {
 
 function renderTasks() {
   taskList.innerHTML = "";
-
   tasks.forEach(function (task) {
     const taskItem = document.createElement("li");
-    taskItem.textContent = task.text;
-    taskList.append(taskItem);
-  });
-}
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    checkbox.addEventListener("change", function () {
+      task.completed = checkbox.checked;
+      localStorage.setItem(storageKey, JSON.stringify(tasks));
+      taskText.classList.toggle("completed", task.completed); 
+    });
 
+    const taskText = document.createElement("span");
+    taskText.textContent = task.text;
+    taskText.classList.toggle("completed", task.completed);
+    taskItem.append(checkbox, taskText);
+    taskList.appendChild(taskItem);
+}); 
+}
 renderTasks();
 
 taskForm.addEventListener("submit", function (event) {

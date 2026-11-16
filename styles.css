@@ -71,7 +71,7 @@ label {
   font-weight: 700;
 }
 
-input {
+#task-input {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #bbcabe;
@@ -103,7 +103,10 @@ ul {
   margin-bottom: 0;
   padding-left: 24px;
 }
-
+.completed {
+    text-decoration: line-through;
+    color: #6b7280;
+}
 @media (max-width: 520px) {
   header {
     padding: 48px 20px 88px;
