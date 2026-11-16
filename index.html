@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Destrava - seu próximo passo</title>
+</head>
+<body>
+    <header>
+        <p>Destrava</p>
+        <h1>Um passo de cada vez.</h1>
+        <p>Organize sua rotina sem precisar resolver tudo agora.</p>
+    </header>
+
+    <main>
+      <section aria-labelledby="task-form-title">
+        <h2 id="task-form-title">O que você quer destravar hoje?</h2>
+        
+        <form id="task-form">
+            <label for="task-input">Próxima tarefa</label>
+            <input
+                id="task-input"
+                name="task"
+                type="text"
+                placeholder="Ex: estudar por 20 minutos"
+                required
+            >
+            <button type="submit">Adicionar tarefa</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="task-list-title">
+        <h2 id="task-list-title">Suas Tarefas</h2>  
+        <ul id="task-list"></ul>
+      </section>
+    </main>
+</body>
+</html>
