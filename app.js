@@ -28,8 +28,17 @@ function renderTasks() {
 
     const taskText = document.createElement("span");
     taskText.textContent = task.text;
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
+      tasks = tasks.filter(function (currentTask) {
+        return currentTask !== task;
+        });
+    localStorage.setItem(storageKey, JSON.stringify(tasks));
+    renderTasks();
+    });
     taskText.classList.toggle("completed", task.completed);
-    taskItem.append(checkbox, taskText);
+    taskItem.append(checkbox, taskText, deleteButton);
     taskList.appendChild(taskItem);
 }); 
 }
